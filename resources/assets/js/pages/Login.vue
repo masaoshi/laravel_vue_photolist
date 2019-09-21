@@ -8,7 +8,7 @@
             >Login</li>
             <li
                 class="tab__item"
-                :class="{'tab__item--active': tab === 2}"
+                :class="{'tab__item--active': tab === 2 }"
                 @click="tab = 2"
             >Register</li>
         </ul>
@@ -34,7 +34,7 @@
         <div class="panel" v-show="tab === 2">
             <form class="form" @submit.prevent="register">
                 <div v-if="registerErrors" class="errors">
-                    <ul v-if="registerErros.name">
+                    <ul v-if="registerErrors.name">
                         <li v-for="msg in registerErrors.name" :key="msg">{{ msg }}</li>
                     </ul>
                     <ul v-if="registerErrors.email">
@@ -50,7 +50,7 @@
                 <input type="text" class="form__item" id="email" v-model="registerForm.email">
                 <label for="password">Password</label>
                 <input type="password" class="form__item" id="password" v-model="registerForm.password">
-                <label for="password-confirmation">password (confirm)</label>
+                <label for="password-confirmation">Password (confirm)</label>
                 <input type="password" class="form__item" id="password-confirmation" v-model="registerForm.password_confirmation">
                 <div class="form__button">
                     <button type="submit" class="button button--inverse">register</button>
@@ -62,7 +62,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { stat } from 'fs'
 
 export default {
     data () {
@@ -89,7 +88,7 @@ export default {
     },
     methods: {
         async login () {
-            // auth ストアの login アクションを呼び出す
+            // authストアのloginアクションを呼び出す
             await this.$store.dispatch('auth/login', this.loginForm)
 
             if (this.apiStatus) {
@@ -98,7 +97,7 @@ export default {
             }
         },
         async register () {
-            // auth ストアの register アクションを呼び出す
+            // authストアのresigterアクションを呼び出す
             await this.$store.dispatch('auth/register', this.registerForm)
 
             if (this.apiStatus) {
@@ -108,11 +107,11 @@ export default {
         },
         clearError () {
             this.$store.commit('auth/setLoginErrorMessages', null)
+            this.$store.commit('auth/setRegisterErrorMessages', null)
         }
     },
     created () {
-        this.$store.commit('auth/setLoginErrorMessages', null)
-        this.$store.commit('auth/setRegisterErrorMessages', null)
+        this.clearError()
     }
 }
-</script>>
+</script>
