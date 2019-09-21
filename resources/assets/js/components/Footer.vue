@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { mapStatus, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     computed: {
-        ...mapStatus({
+        ...mapState({
             apiStatus: state => state.auth.apiStatus
         }),
         ...mapGetters({
