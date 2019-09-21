@@ -9,3 +9,14 @@
         </form>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        value: {
+            type: Boolean,
+            required: true
+        }
+    }
+}
+</script>
