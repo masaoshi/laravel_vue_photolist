@@ -2023,11 +2023,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  data: function data() {
+    return {
+      landscape: false,
+      portrait: false
+    };
+  },
+  computed: {
+    imageClass: function imageClass() {
+      return {
+        // 横長クラス
+        'photo__image--landscape': this.landscape,
+        // 縦長クラス
+        'photo__image--portrait': this.portrait
+      };
+    }
+  },
+  methods: {
+    setAspectRatio: function setAspectRatio() {
+      if (!this.$refs.image) {
+        return false;
+      }
+
+      var height = this.$refs.image.clientHeight;
+      var width = this.$refs.image.clientWidth; // 縦長比率 3:4 よりも横長の画像
+
+      this.landscape = height / width <= 0.75; // 横長でなければ縦長
+
+      this.portrait = !this.landscape;
+    }
+  },
+  watch: {
+    $route: function $route() {
+      // ページが切り替わってから画像が読み込まれるまでの間に
+      // 前のページの同じ位置にあった画像の表示が残ってしまうことを防ぐ
+      this.landscape = false;
+      this.portrait = false;
     }
   }
 });
@@ -4058,8 +4099,11 @@ var render = function() {
     [
       _c("figure", { staticClass: "photo__wrapper" }, [
         _c("img", {
-          staticClass: "photo__image photo__image--portrait",
-          attrs: { src: _vm.item.url, alt: "Photo by " + _vm.item.owner.name }
+          ref: "image",
+          staticClass: "photo__image",
+          class: _vm.imageClass,
+          attrs: { src: _vm.item.url, alt: "Photo by " + _vm.item.owner.name },
+          on: { load: _vm.setAspectRatio }
         })
       ]),
       _vm._v(" "),
