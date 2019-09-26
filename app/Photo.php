@@ -10,6 +10,9 @@ class Photo extends Model
     // プライマリーキーの型
     protected $keyType = 'string';
 
+    // 1ページの表示数
+    protected $perPage = 15;
+
     /** JSONに含める属性 */
     protected $appends = [
         'url',
@@ -84,6 +87,7 @@ class Photo extends Model
     public function getUrlAttribute()
     {
         // return Storage::cloud()->url($this->attributes['filename']);
+        // php artisan storage:link 実行後
         return Storage::disk('public')->url($this->attributes['filename']);
     }
 }
