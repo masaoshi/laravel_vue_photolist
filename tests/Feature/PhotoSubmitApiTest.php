@@ -63,7 +63,7 @@ class PhotoSubmitApiTest extends TestCase
         Schema::drop('photos');
 
         // S3は使用せず、ローカルに保存する為コメントアウト
-        // Storage::fake('s3');
+        Storage::fake('s3');
 
         $response = $this->actingAs($this->user)
             ->json('POST', route('photo.create'), [
@@ -75,10 +75,10 @@ class PhotoSubmitApiTest extends TestCase
 
         // ストレージにファイルが保存されていないこと
         // S3は使用せず、ローカルに保存する為コメントアウト
-        // $this->assertEquals(0, count(Storage::cloud()->files()));
+        $this->assertEquals(0, count(Storage::cloud()->files()));
 
         // .gitignoreが存在する為1カウント
-        $this->assertEquals(1, count(Storage::disk('public')->files()));
+        // $this->assertEquals(1, count(Storage::disk('public')->files()));
     }
 
     /**
