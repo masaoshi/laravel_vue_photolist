@@ -12,7 +12,7 @@
         </figure>
         <RouterLink
             class="photo__overlay"
-            :to="`/photo/${item.id}`"
+            :to="`/photos/${item.id}`"
             :title="`View the photo by ${item.owner.name}`"
         >
             <div class="photo__controls">
@@ -26,7 +26,7 @@
                     class="photo__action"
                     title="Download photo"
                     @click.stop 
-                    :href="`/photo/${item.id}/download`"
+                    :href="`/photos/${item.id}/download`"
                 >
                     <i class="icon ion-md-arrow-round-down"></i>
                 </a>
