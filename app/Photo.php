@@ -99,4 +99,13 @@ class Photo extends Model
     {
         return $this->hasMany('App\Comment')->orderBy('id', 'desc');
     }
+
+    /**
+     * リレーションシップ - usersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function likes()
+    {
+        return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+    }
 }
