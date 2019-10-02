@@ -18,9 +18,11 @@
             <div class="photo__controls">
                 <button
                     class="photo__action photo__action--link"
+                    :class="{ 'photo__action--liked': item.liked_by_user }"
                     title="Like photo"
+                    @click.prevent="like"
                 >
-                    <i class="icon ion-md-heart"></i>12
+                    <i class="icon ion-md-heart"></i>{{ item.likes_count }}
                 </button>
                 <a
                     class="photo__action"
