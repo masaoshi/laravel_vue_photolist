@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Comment;
 use App\Photo;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -30,6 +31,17 @@ class PhotoDetailApiTest extends TestCase
                 'owner' => [
                     'name' => $photo->owner->name,
                 ],
+                'comments' => $photo->comments
+                    ->sortByDesc('id')
+                    ->map(function ($comment) {
+                        return [
+                            'author' => [
+                                'name' => $comment->author->name,
+                            ],
+                            'content' => $comment->content,
+                        ];
+                    })
+                    ->all(),
             ]);
     }
 }
