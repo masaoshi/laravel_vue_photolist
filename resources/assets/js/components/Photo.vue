@@ -75,6 +75,12 @@ export default {
             this.landscape = height / width <= 0.75
             // 横長でなければ縦長
             this.portrait = ! this.landscape
+        },
+        like () {
+            this.$emit('like', {
+                id: this.item.id,
+                liked: this.item.liked_by_user
+            })
         }
     },
     watch: {
